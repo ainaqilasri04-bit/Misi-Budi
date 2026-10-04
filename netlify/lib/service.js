@@ -1,3 +1,4 @@
+import {validateAdaptive,adaptiveSummary} from '../../public/adaptive-core.js';
 import {randomBytes,randomUUID,createHash,timingSafeEqual} from 'node:crypto';
 import {QUESTIONS,PROVERBS,REFLECTIONS} from '../../public/data.js';
 import {same,validChoice,total,completed,badges,rankRows,skillStats} from '../../public/scoring.js';
@@ -23,12 +24,13 @@ export function validateAttempts(input,previous={}){
 export function validateReflections(input={}){if(!input||typeof input!=='object'||Array.isArray(input))fail('Refleksi tidak sah.');const out={};for(const r of REFLECTIONS){if(input[r.id]!==undefined){if(!r.items.some(([id])=>id===input[r.id]))fail('Pilihan refleksi tidak sah.');out[r.id]=input[r.id];}}return out;}
 export function createService(store,{teacherKey='',now=()=>Date.now()}={}){
  async function room(code){if(!codeOK(code))fail('Kod kelas mestilah lapan huruf atau nombor.');const r=await store.get(`rooms/${code}`,{type:'json'});if(!r)fail('Kod kelas tidak ditemui. Semak dengan guru.',404);return r;}
- function admin(key){if(teacherKey.length<12)fail('Ruang guru belum diaktifkan. Tetapkan KUNCI_GURU dalam tetapan Netlify.',503);if(typeof key!=='string'||!equal(key,teacherKey))fail('Kunci guru tidak tepat.',401);}
+ function admin(key){if(teacherKey.length<12)fail('Ruang guru belum diaktifkan. Tetapkan KUNCI_GURU dalam tetapan Netlify.',503);if(typeof key!=='string'||!equal(key,teacherKey))fail('Kata laluan guru tidak tepat.',401);}
  async function rows(code){const {blobs}=await store.list({prefix:`players/${code}/`});return (await Promise.all(blobs.map(b=>store.get(b.key,{type:'json'})))).filter(Boolean);}
  const publicRow=p=>({id:p.id,name:p.name,car:p.car,score:total(p.attempts),done:completed(p.attempts)===20,level:Math.floor(completed(p.attempts)/5),badges:badges(p.attempts)});
  return async function dispatch(b){
   if(!b||typeof b!=='object'||Array.isArray(b))fail('Permintaan tidak sah.');
   if(b.action==='health')return {ok:true,teacherReady:teacherKey.length>=12};
+  if(b.action==='verify'){admin(b.teacherKey);return {ok:true};}
   if(b.action==='create'){
    admin(b.teacherKey);const name=String(b.name||'Kelas BaCaNi').trim().slice(0,60);if(!name)fail('Masukkan nama sesi.');
    const alphabet='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let code;
@@ -43,9 +45,10 @@ export function createService(store,{teacherKey='',now=()=>Date.now()}={}){
   if(b.action==='progress'){
    const r=await room(b.code);if(!idOK(b.id)||!tokenOK(b.token))fail('Sila masuk semula ke sesi kelas.',401);
    const key=`players/${b.code}/${b.id}`;const entry=await store.getWithMetadata(key,{type:'json'});if(!entry||!equal(hash(b.token),entry.data.tokenHash))fail('Sila masuk semula ke sesi kelas.',401);
-   const attempts=validateAttempts(b.attempts,entry.data.attempts);const reflections=validateReflections(b.reflections);
-   if(r.closed&&!same(attempts,entry.data.attempts))fail('Sesi ditutup. Jawapan disimpan pada peranti ini; minta guru membuka semula sesi untuk menghantar.',409);
-   const p={...entry.data,attempts,reflections,updatedAt:now()};const write=await store.setJSON(key,p,{onlyIfMatch:entry.etag});if(!write.modified)fail('Kemajuan sedang dikemas kini. Cuba hantar semula.',409);return {ok:true,...publicRow(p)};
+   if(b.car!==undefined&&!carOK(b.car))fail('Pilihan kereta tidak sah.');
+   const attempts=validateAttempts(b.attempts,entry.data.attempts);const reflections=validateReflections(b.reflections);let adaptive;try{adaptive=validateAdaptive(b.adaptive,attempts,entry.data.adaptive||null);}catch(e){fail(e.message);}
+   if(r.closed&&(!same(attempts,entry.data.attempts)||!same(adaptive,entry.data.adaptive||null)))fail('Sesi ditutup. Jawapan disimpan pada peranti ini; minta guru membuka semula sesi untuk menghantar.',409);
+   const p={...entry.data,car:b.car||entry.data.car,attempts,reflections,adaptive,updatedAt:now()};const write=await store.setJSON(key,p,{onlyIfMatch:entry.etag});if(!write.modified)fail('Kemajuan sedang dikemas kini. Cuba hantar semula.',409);return {ok:true,...publicRow(p)};
   }
   if(b.action==='leaderboard'){
    const r=await room(b.code);return {name:r.name,closed:r.closed,rows:rankRows((await rows(b.code)).map(publicRow))};
@@ -54,7 +57,7 @@ export function createService(store,{teacherKey='',now=()=>Date.now()}={}){
    admin(b.teacherKey);const r=await room(b.code);
    if(b.action==='delete'){const list=await store.list({prefix:`players/${b.code}/`});for(const item of list.blobs)await store.delete(item.key);await store.delete(`rooms/${b.code}`);return {ok:true};}
    if(b.action==='close'||b.action==='open'){r.closed=b.action==='close';await store.setJSON(`rooms/${b.code}`,r);}
-   return {...r,rows:rankRows((await rows(b.code)).map(p=>({...publicRow(p),attempts:p.attempts,reflections:p.reflections,skills:skillStats(p.attempts),updatedAt:p.updatedAt})))};
+   return {...r,rows:rankRows((await rows(b.code)).map(p=>({...publicRow(p),attempts:p.attempts,reflections:p.reflections,skills:skillStats(p.attempts),adaptive:p.adaptive||null,adaptiveSummary:adaptiveSummary(p.adaptive,p.attempts),updatedAt:p.updatedAt})))};
   }
   fail('Tindakan tidak dikenali.');
  };

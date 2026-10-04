@@ -1,5 +1,9 @@
+import {adaptiveTexts} from '../public/adaptive-data.js';
 import {LEVELS,PROVERBS,PRACTICE,REFLECTIONS,plain} from '../public/data.js';
-import {CLUES,PASSPORT,TRANSFORMS,WORLD_UI,HELP_STEPS} from '../public/journey-data.js';
+import {CLUES,PASSPORT,TRANSFORMS,WORLD_UI,HELP_STEPS,TEACHER_HELP} from '../public/journey-data.js';
+import {GROUP_UI,HUNTS} from '../public/group-data.js';
+import {PLAY_UI,WORKSHOPS} from '../public/play-data.js';
+import {supportTexts,recordedKey,wordRecording,VOCABULARY} from '../public/reading-data.js';
 import {writeFileSync} from 'node:fs';
 import {resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -9,7 +13,12 @@ for(const q of [...LEVELS.flatMap(l=>l.questions),...PRACTICE,...PROVERBS]){add(
 for(const p of PROVERBS)add(`${plain(p.text)}. Maksudnya, ${p.meaning}. ${p.context}`);
 for(const r of REFLECTIONS){add(r.title);add(r.items.map(([,t])=>t).join('. '));}
 for(const p of PASSPORT)add(`${p.baca} ${p.cari} ${p.nilai}`);
-Object.values(WORLD_UI).forEach(add);HELP_STEPS.forEach(step=>add(step.text));CLUES.flat().forEach(add);TRANSFORMS.flat().forEach(add);
+Object.values(TEACHER_HELP).forEach(add);Object.values(WORLD_UI).forEach(add);HELP_STEPS.forEach(step=>add(step.text));CLUES.flat().forEach(add);TRANSFORMS.flat().forEach(add);
 ['Singgah dan baca cerita.','Selamat datang ke Misi Budi. Baca cerita, cari perbuatan watak, dan kenal pasti nilai murni.','Mari kita baca cerita bersama-sama.','Isi nama dan pilih kereta. Pandu ke hentian. Baca cerita. Cari perbuatan watak. Nyatakan nilai dan bukti. Kamu boleh mendengar dan mencuba semula.'].forEach(add);
+Object.values(PLAY_UI).forEach(add);for(const w of WORKSHOPS){w.parts.forEach(add);add(w.sentence);}
+Object.values(GROUP_UI).forEach(add);for(const h of HUNTS){add(h.hint);h.options.forEach(add);}
+supportTexts().map(recordedKey).filter(Boolean).forEach(add);
+VOCABULARY.flat().map(wordRecording).forEach(r=>{if(r.text)add(r.text);});
+adaptiveTexts().forEach(add);
 export const audioTexts=[...set].filter(Boolean);
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){writeFileSync(process.argv[2]||'/tmp/misi-budi-audio-texts.json',JSON.stringify(audioTexts,null,2));console.log(audioTexts.length+' petikan audio');}

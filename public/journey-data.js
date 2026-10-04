@@ -1,17 +1,132 @@
 import {icon} from './icons.js';
 export const PLACES=[
- {name:'Lembah Cerita',symbol:icon('book'),focus:'Ba · Baca cerita',goal:'Kenali watak, tempat dan masalah dalam cerita.',celebrate:'Lembah Cerita terbuka!',tint:'#138d83',subtitle:'Sebuah cerita menanti di sebalik lembah.'},
- {name:'Lorong Bekalan',symbol:icon('bag'),focus:'Ca · Cari perbuatan watak',goal:'Bawa bekalan yang betul. Jejaki perbuatan Aina dan Ravi.',celebrate:'Bekalan sampai, jejak difahami!',tint:'#239378',subtitle:'Setiap tindakan menyimpan sebuah petunjuk.'},
- {name:'Jambatan Muafakat',symbol:icon('friends'),focus:'Ni · Nilai murni',goal:'Hubungkan kerjasama dengan bukti untuk membuka jambatan.',celebrate:'Jambatan Muafakat bersambung!',tint:'#65578f',subtitle:'Bukti yang tepat menyambungkan persahabatan.'},
- {name:'Karnival Budi',symbol:icon('fruit'),focus:'Ba + Ca + Ni',goal:'Jelaskan nilai dan pilih amalan yang boleh dilakukan sendiri.',celebrate:'Karnival Budi kembali berseri!',tint:'#ad7347',subtitle:'Bawa pulang nilai daripada pengembaraanmu.'}
+  {
+    "name": "Lembah Pelangi",
+    "theme": "forest",
+    "focus": "Kerjasama",
+    "goal": "Pulihkan aliran air. Cari bukti dua sahabat bekerjasama.",
+    "celebrate": "Bunga mekar. Helaian pertama ditemukan!",
+    "tint": "#258468",
+    "subtitle": "Saluran tersumbat. Bolehkah dua sahabat menghidupkan lembah?",
+    "mode": "Kereta darat",
+    "souvenir": "Daun pelangi"
+  },
+  {
+    "name": "Terowong Kristal",
+    "theme": "cave",
+    "focus": "Keprihatinan",
+    "goal": "Nyalakan kristal. Fahami perasaan dan tindakan sahabat.",
+    "celebrate": "Terowong bercahaya. Helaian kedua ditemukan!",
+    "tint": "#8663a8",
+    "subtitle": "Sebuah suara kecil kedengaran dalam gelap. Berhenti dan dengar.",
+    "mode": "Kereta berlampu",
+    "souvenir": "Kristal cahaya"
+  },
+  {
+    "name": "Teluk Penyu",
+    "theme": "water",
+    "focus": "Tanggungjawab",
+    "goal": "Buka laluan penyu. Hubungkan kebersihan dengan tanggungjawab.",
+    "celebrate": "Penyu kembali ke laut. Helaian ketiga ditemukan!",
+    "tint": "#187b9b",
+    "subtitle": "Pelampung dibuka. Mari membantu dari kereta terapung kita.",
+    "mode": "Kereta terapung",
+    "souvenir": "Cangkerang biru"
+  },
+  {
+    "name": "Orbit Bintang",
+    "theme": "space",
+    "focus": "Kejujuran",
+    "goal": "Pulihkan panduan stesen. Terangkan mengapa berkata benar membantu.",
+    "celebrate": "Buku Budi lengkap. Nilai dibawa pulang!",
+    "tint": "#5258a4",
+    "subtitle": "Lompatan lebih ringan di angkasa. Apakah yang berlaku kepada lampu?",
+    "mode": "Kereta angkasa",
+    "souvenir": "Bintang orbit"
+  }
 ];
-export const CLUES=[['Kenali dua sahabat.','Cari tempat cerita.','Kumpulkan benda yang mengotorkan taman.','Padankan gambar dengan cerita.','Fahami tujuan gotong-royong.'],['Cari perbuatan Ravi.','Bawa barang yang Aina perlukan.','Cari frasa perbuatan.','Fahami perasaan Ravi.','Bina laluan mengikut urutan cerita.'],['Pilih nilai untuk jambatan.','Cari bukti kerjasama.','Kenali cara meminta maaf.','Pilih ajakan yang santun.','Lengkapkan alasan dengan bukti.'],['Lihat perubahan taman.','Padankan nilai dan perbuatan.','Susun peristiwa penutup.','Pilih cara bertanya dengan sopan.','Bawa amalan baik pulang.']];
-export const TRANSFORMS=[['Nama watak difahami. Pintu pertama terbuka.','Tempat cerita dikenal pasti. Jejak kedua dibuka.','Benda yang mengotorkan taman dikenal pasti. Bukti disimpan.','Gambar dipadankan dengan ayat. Jejak seterusnya dibuka.','Tujuan gotong-royong difahami. Cap Lembah Cerita diperoleh.'],['Perbuatan Ravi dikenal pasti. Bukti pertama disimpan.','Plastik sampah dipilih. Bekalan dimuatkan ke dalam kereta.','Frasa perbuatan ditemukan. Pintu seterusnya terbuka.','Perasaan Ravi difahami. Kita boleh melihat sebabnya.','Peristiwa disusun. Laluan ke Jambatan Muafakat terbuka.'],['Nilai kerjasama ditemukan. Jambatan mula bersambung.','Bukti perbuatan dikenal pasti. Bahagian jambatan ditambah.','Permintaan maaf difahami. Bahagian jambatan ditambah.','Ajakan santun dipilih. Bahagian jambatan ditambah.','Nilai disertai alasan yang tepat. Jambatan lengkap!'],['Keadaan taman difahami. Hiasan pertama dinyalakan.','Nilai dan bukti sepadan. Hiasan kedua dinyalakan.','Urutan akhir disusun. Laluan karnival dibuka.','Cara bertanya dengan sopan dikenal pasti. Hiasan keempat dinyalakan.','Amalan baik dipilih. Pengembaraan BaCaNi selesai!']];
+PLACES.forEach((p,i)=>p.symbol=icon(['park','sun','hands','flag'][i]));
+export const CLUES=[
+  [
+    "Kenali dua sahabat.",
+    "Cari punca bunga layu.",
+    "Cari perbuatan Ravi.",
+    "Kenal pasti nilai kerjasama.",
+    "Pilih bukti kerja bersama."
+  ],
+  [
+    "Fahami masalah terowong.",
+    "Lihat tindakan Aina.",
+    "Kenal pasti keprihatinan.",
+    "Fahami perasaan Ravi.",
+    "Susun peristiwa terowong."
+  ],
+  [
+    "Cari penghalang laluan penyu.",
+    "Cari cara Aina membantu.",
+    "Kenal pasti tanggungjawab.",
+    "Pilih bukti menjaga teluk.",
+    "Cari amalan sebelum makan."
+  ],
+  [
+    "Kenali tempat Nuri.",
+    "Padankan kejujuran dengan bukti.",
+    "Susun peristiwa di stesen.",
+    "Pilih tindakan yang jujur.",
+    "Jelaskan sebab kejujuran membantu."
+  ]
+];
+export const TRANSFORMS=[
+  [
+    "Aliran air 1 dipulihkan. Bunga di laluan mula mekar.",
+    "Aliran air 2 dipulihkan. Bunga di laluan mula mekar.",
+    "Aliran air 3 dipulihkan. Bunga di laluan mula mekar.",
+    "Aliran air 4 dipulihkan. Bunga di laluan mula mekar.",
+    "Aliran air 5 dipulihkan. Bunga di laluan mula mekar."
+  ],
+  [
+    "Kristal 1 bercahaya. Laluan terowong semakin jelas.",
+    "Kristal 2 bercahaya. Laluan terowong semakin jelas.",
+    "Kristal 3 bercahaya. Laluan terowong semakin jelas.",
+    "Kristal 4 bercahaya. Laluan terowong semakin jelas.",
+    "Kristal 5 bercahaya. Laluan terowong semakin jelas."
+  ],
+  [
+    "Laluan air 1 dibersihkan. Penyu semakin dekat dengan laut.",
+    "Laluan air 2 dibersihkan. Penyu semakin dekat dengan laut.",
+    "Laluan air 3 dibersihkan. Penyu semakin dekat dengan laut.",
+    "Laluan air 4 dibersihkan. Penyu semakin dekat dengan laut.",
+    "Laluan air 5 dibersihkan. Penyu semakin dekat dengan laut."
+  ],
+  [
+    "Lampu orbit 1 menyala. Panduan stesen kembali pulih.",
+    "Lampu orbit 2 menyala. Panduan stesen kembali pulih.",
+    "Lampu orbit 3 menyala. Panduan stesen kembali pulih.",
+    "Lampu orbit 4 menyala. Panduan stesen kembali pulih.",
+    "Lampu orbit 5 menyala. Panduan stesen kembali pulih."
+  ]
+];
 export const PASSPORT=[
- {baca:'Keluarga Aina dan Ravi membersihkan taman untuk Karnival Bandar Sihat.',cari:'Aina melihat botol kosong dan pembungkus makanan di atas rumput.',nilai:'Kita perlu memahami cerita sebelum menentukan nilai berdasarkan perbuatan watak.'},
- {baca:'Ravi menyangka dia bekerja seorang diri. Aina sebenarnya mengambil plastik sampah.',cari:'Ravi menyapu daun. Aina mengambil plastik sampah.',nilai:'Kita perlu memahami sebab sesuatu tindakan dan bertanya apabila keadaan belum jelas.'},
- {baca:'Aina menerangkan keadaan. Ravi meminta maaf. Mereka membahagikan tugas.',cari:'Mereka berbincang dan bersetuju membahagikan tugas.',nilai:'Kerjasama ditunjukkan melalui pembahagian tugas untuk menyiapkan kerja bersama-sama.'},
- {baca:'Taman kini bersih. Aina dan Ravi membasuh tangan sebelum makan.',cari:'Mereka mengumpulkan sampah dan membasuh tangan dengan sabun.',nilai:'Kerja bersama menunjukkan kerjasama. Membasuh tangan ialah amalan kebersihan diri.'}
+  {
+    "baca": "Daun kering menyumbat saluran air dan bunga menjadi layu.",
+    "cari": "Ravi mengutip daun. Aina memegang bakul.",
+    "nilai": "Mereka menunjukkan kerjasama kerana berkongsi tugas untuk memulihkan aliran air."
+  },
+  {
+    "baca": "Ravi berasa takut di dalam terowong yang gelap.",
+    "cari": "Aina berhenti, mendengar dan menemani Ravi.",
+    "nilai": "Aina menunjukkan keprihatinan kerana mengambil berat tentang perasaan sahabat."
+  },
+  {
+    "baca": "Botol dan plastik menghalang laluan penyu di teluk.",
+    "cari": "Aina dan Ravi mengutip sampah serta membawanya ke pusat kitar semula.",
+    "nilai": "Mereka menunjukkan tanggungjawab kerana menjaga kebersihan tempat bersama."
+  },
+  {
+    "baca": "Ravi tertekan suis dan lampu panduan padam.",
+    "cari": "Ravi mengaku kepada Nuri. Mereka mengikuti panduan untuk memulihkan lampu.",
+    "nilai": "Ravi menunjukkan kejujuran kerana berkata benar tentang kesalahannya."
+  }
 ];
 export const WORLD_UI={intro:'Gerakkan kereta ke kanan. Singgah di buku untuk membaca cerita.',drive:'Tekan anak panah kiri atau kanan untuk bergerak. Tekan butang Lompat jika mahu melompat. Melompat tidak wajib.',collect:'Pandu ke pilihan kamu. Tekan butang Pilih. Kamu juga boleh menekan kad jawapan di bawah.',sequence:'Pilih peristiwa satu demi satu mengikut cerita untuk membina laluan.',welcome:'Selamat datang ke Misi Budi. Jelajah dunia cerita. Baca cerita, cari perbuatan watak, dan kenal pasti nilai murni.'};
 
@@ -26,3 +141,5 @@ export const HELP_STEPS=[
  {title:'Cuba semula',text:'Jika jawapan belum tepat, dengar penerangannya. Baca semula cerita. Cuba lagi apabila kamu sudah bersedia. Tiada had masa.'},
  {title:'Bantuan sentiasa tersedia',text:'Kamu boleh menggunakan bantuan dan mengulang bacaan. Bantuan tidak mengurangkan mata.'}
 ];
+
+export const TEACHER_HELP={login:'Ruang guru membantu cikgu mengurus kelas dan melihat kemajuan murid. Masukkan kata laluan guru untuk bermula.',create:'Langkah satu. Tulis nama kelas, kemudian tekan Cipta kelas. Sistem akan memberikan kod kelas.',share:'Langkah dua. Murid membuka pautan permainan, mengisi nama panggilan dan memasukkan kod kelas. Kata laluan guru tidak diberikan kepada murid.',watch:'Langkah tiga. Tekan Kemas kini untuk melihat kemajuan. Bantu murid berdasarkan kemahiran yang masih perlu dilatih.'};

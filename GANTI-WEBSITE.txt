@@ -1,0 +1,69 @@
+MISI BUDI 4.4.0 — GANTIKAN LAMAN GITHUB DAN NETLIFY SEDIA ADA
+
+APA YANG BAHARU
+Selepas murid menyelesaikan 20 misi, permainan terus membuka tiga latihan mengikut jawapan tepat pada cubaan pertama:
+• 0–9 daripada 20: pemulihan. Contoh ringkas, dua pilihan dan petunjuk.
+• 10–15 daripada 20: pengukuhan. Situasi baharu, tiga pilihan dan penerangan.
+• 16–20 daripada 20: pengayaan. Bandingkan tindakan, gunakan peribahasa dan bina contoh sendiri.
+Pemilihan mengutamakan kemahiran yang paling memerlukan bantuan. Bantuan suara, fon besar dan kawalan automatik tidak mengurangkan pencapaian. Tiada had masa. Ambang ini ialah aturan latihan permainan; bukan ambang rasmi PBD atau diagnosis.
+
+Mata permainan /100 berbeza daripada ketepatan pertama. Contoh: murid yang menjawab semua soalan selepas mencuba semula mendapat 60 mata tetapi masih menerima pemulihan kerana 0/20 tepat pertama. Ketepatan latihan susulan direkodkan berasingan; ia tidak menukar mata 20 misi atau laluan asal secara automatik.
+
+Pengayaan menerima tulisan sendiri atau idea lisan yang dicatat oleh guru/rakan. Empat ruangan ialah situasi, perbuatan, peribahasa dan alasan. Contoh perlu disemak guru; permainan tidak memberi markah automatik bagi jawapan terbuka. Semua murid boleh menyertai Misi berkumpulan dan membawa idea masing-masing untuk membina, menyemak serta membaiki buku bersama.
+
+SEBELUM MULA
+1. Gunakan akaun GitHub yang memiliki repository Misi Budi lama dan akaun Netlify yang mengurus laman itu.
+2. Jika mahu menyimpan salinan laporan, buka Ruang guru pada laman lama dan muat turun CSV. Buku kumpulan: muat turun fail sambungan JSON.
+3. Muat turun Misi-Budi-GitHub.zip versi baharu. Ekstrak ke folder baharu supaya tidak tersalah fail lama.
+4. Buka folder misi-budi. Di dalamnya mesti ada public, netlify, scripts, tests, package.json, package-lock.json dan netlify.toml.
+
+LANGKAH 1 — BUKA REPOSITORY LAMA
+Di GitHub, buka repository yang sudah disambungkan kepada laman Netlify Misi Budi. Kekalkan repository dan projek Netlify ini supaya alamat laman kekal. Pilih cabang produksi yang Netlify gunakan, biasanya main.
+
+LANGKAH 2 — MUAT NAIK FAIL PENGGANTI
+Pada halaman utama repository yang menunjukkan public dan netlify:
+• Tekan Add file → Upload files.
+• Pada komputer, masuk ke DALAM folder misi-budi yang baru diekstrak.
+• Pilih semua fail dan folder DI DALAMNYA, kemudian seret ke ruangan muat naik GitHub.
+• Jangan seret folder pembungkus misi-budi, ZIP atau fail berasingan Misi-Budi-Dunia-BaCaNi.html.
+• Semak laluan: public/app.js dan public/adaptive-lab.js. Laluan tidak sepatutnya menjadi misi-budi/public/app.js.
+• Tunggu semua muat naik selesai. Fail dengan nama dan laluan yang sama akan dikemas kini. Muat naik semua kandungan pakej, termasuk tiga modul adaptive, adaptive.css, audio-manifest.js, bacaan-latihan.mp3 dan netlify/lib/service.js.
+
+LANGKAH 3 — SIMPAN PERUBAHAN DI GITHUB
+Tulis mesej: Kemas kini Misi Budi 4.4.0.
+Jika repository membenarkan, pilih Commit directly to the main branch (atau cabang produksi sebenar), kemudian Commit changes.
+Jika GitHub meminta cabang baharu/Propose changes kerana peraturan repository, cipta pull request dan gabungkan ke cabang produksi selepas menyemak perubahan. Commit pada cabang lain sahaja belum mengemas kini laman utama.
+
+LANGKAH 4 — BUKA PROJEK NETLIFY YANG SAMA
+Buka projek Misi Budi lama → Deploys.
+Jika pautan GitHub dan penerbitan automatik aktif, commit pada cabang produksi mencetuskan binaan. Pilih deploy terbaharu dan tunggu Published.
+Fail netlify.toml membekalkan tetapan berikut:
+• Build command: npm run build
+• Publish directory: public
+• Functions directory: netlify/functions
+• Node: 22
+• Base directory: akar repository, kecuali projek lama memang menggunakan struktur khas.
+Kekalkan KUNCI_GURU yang sudah ditetapkan dalam Netlify. Jangan muat naik kata laluan ke GitHub.
+Jika tiada deploy baharu, semak repository/cabang yang dipautkan serta sama ada auto publishing dihentikan atau deploy dikunci. Jika Failed, buka log deploy dan salin mesej ralat; jangan padam projek lama.
+
+LANGKAH 5 — BUKA LAMAN DAN SEMAK
+Buka alamat Netlify yang sama. Tekan ikon muat semula; pada komputer Windows gunakan Ctrl + Shift + R jika masih melihat versi lama.
+Di kaki halaman mesti tertulis Versi 4.4.0.
+• Cuba Dengar dan Henti suara.
+• Tekan Sambung perjalanan untuk meneruskan kemajuan 4.x dalam pelayar dan alamat yang sama. Jangan tekan Mulakan pengembaraan jika mahu menyambung rekod lama.
+• Murid yang sudah selesai 20 misi dalam versi 4.x akan menerima latihan baharu apabila menyambung.
+• Buka Ruang guru → Kelas sedia ada → masukkan kod lama → Kemas kini → tekan nama murid.
+• Lihat laluan latihan, tepat pertama /20, selesai /3, petunjuk dan contoh peribahasa. CSV mengandungi butiran ini juga.
+• Cuba satu kelas ujian pada dua peranti untuk menyemak sambungan sebenar Netlify.
+
+SIMPANAN DAN SAMBUNGAN
+Naik taraf 4.x mengekalkan kunci simpanan pelayar dan simpanan kelas asal. Pada peranti murid, gunakan alamat dan profil pelayar yang sama; jangan padam data pelayar. Versi 3.x mempunyai soalan lain dan memerlukan kelas baharu.
+Draf pengayaan disimpan setempat semasa menaip; ia dihantar apabila lengkap dan disimpan untuk semakan, atau apabila menekan Simpan draf & kembali. Kemajuan kelas memerlukan Internet. Jika penghantaran gagal, gunakan Hantar semula ke kelas / Hantar semula keputusan. Paparan guru menunjukkan contoh lengkap yang sudah dihantar. Buku kumpulan dan catatan pemerhatian kekal setempat dan boleh dieksport seperti sebelumnya.
+
+UJIAN VERSI INI
+Logik tiga laluan, simpan/sambung, keserasian sesi 4.x, jawapan cubaan semula, penghantaran kelas simulasi, laporan guru dan audio diuji setempat. Laman dalam akaun Netlify anda belum diterbitkan oleh fail ini; langkah di atas menerbitkan kemas kini melalui akaun anda.
+
+RUJUKAN LANGKAH
+GitHub: https://docs.github.com/en/repositories/working-with-files/managing-files/adding-a-file-to-a-repository
+Netlify: https://docs.netlify.com/deploy/create-deploys/
+

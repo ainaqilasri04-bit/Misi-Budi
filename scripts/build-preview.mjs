@@ -1,6 +1,6 @@
 // Membina pratonton yang boleh dibuka dengan klik dua kali, tanpa pelayan.
 import {readFileSync,writeFileSync} from 'node:fs';
-const modules=['data','scoring','icons','journey-data','adventure','audio-manifest','audio','app'];
+const modules=['data','scoring','icons','journey-data','play-data','world-art','adventure','audio-manifest','audio','group-data','group-store','reading-data','reading-support','observations','group-lab','adaptive-data','adaptive-core','adaptive-lab','app'];
 let bundle="(()=>{ 'use strict'; const M={}; window.BACANI_PREVIEW=true;\n";
 for(const name of modules){let source=readFileSync(`public/${name}.js`,'utf8');const exports=[];
  source=source.replace(/import\s*\{([^}]+)\}\s*from\s*['"]\.\/([^'"]+)\.js['"];?/g,(_,names,module)=>`const {${names}}=M['${module}'];`);
